@@ -6,7 +6,7 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
@@ -28,13 +28,16 @@ public class Team {
     @OneToOne(fetch = FetchType.LAZY)
     private Coach coach;
 
-    @Positive
-    @Column(name = "ACTIVE_PLAYERS")
-    private Long activePlayers;
+    @OneToMany(mappedBy = "team")
+    private List<Player> teamPlayers;
 
-    @Positive
-    @Column(name = "RESERVE_PLAYERS")
-    private Long reservePlayers;
+    public List<Player> getTeamPlayers() {
+        return teamPlayers;
+    }
+
+    public void setTeamPlayers(List<Player> teamPlayers) {
+        this.teamPlayers = teamPlayers;
+    }
 
     public void setCoach(Coach coach) {
         this.coach = coach;
@@ -42,22 +45,6 @@ public class Team {
 
     public Coach getCoach() {
         return coach;
-    }
-
-    public Long getReservePlayers() {
-        return reservePlayers;
-    }
-
-    public void setReservePlayers(Long reservePlayers) {
-        this.reservePlayers = reservePlayers;
-    }
-
-    public Long getActivePlayers() {
-        return activePlayers;
-    }
-
-    public void setActivePlayers(Long activePlayers) {
-        this.activePlayers = activePlayers;
     }
 
     public String getTeamName() {

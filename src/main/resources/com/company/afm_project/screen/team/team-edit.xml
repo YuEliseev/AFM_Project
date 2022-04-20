@@ -5,9 +5,13 @@
     <data>
         <instance id="teamDc"
                   class="com.company.afm_project.entity.Team">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="coach" fetchPlan="_base"/>
+            </fetchPlan>
             <loader/>
+            <collection id="teamPlayersDc" property="teamPlayers"/>
         </instance>
+
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -37,10 +41,29 @@
                         <action id="clear" type="entity_clear"/>
                     </actions>
                 </entityPicker>
-                <textField id="activePlayersField" property="activePlayers"/>
-                <textField id="reservePlayersField" property="reservePlayers"/>
+
             </column>
         </form>
+        <dataGrid id="teamsTable1" height="AUTO" width="AUTO" dataContainer="teamPlayersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="exclude" type="exclude"/>
+                <action id="add" type="add"/>
+            </actions>
+            <buttonsPanel alwaysVisible="true">
+
+                <button id="teamsTable1CreateBtn" action="teamsTable1.create"/>
+                <button id="teamsTable1EditBtn" action="teamsTable1.edit"/>
+                <button id="teamsTable1ExcludeBtn" action="teamsTable1.exclude"/>
+                <button id="teamsTable1AddBtn" action="teamsTable1.add"/>
+            </buttonsPanel>
+            <columns>
+                <column id="teamName" property="name"/>
+                <column id="teamPosition" property="position"/>
+            </columns>
+        </dataGrid>
+
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

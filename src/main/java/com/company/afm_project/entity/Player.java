@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "PLAYER", indexes = {
-        @Index(name = "IDX_PLAYER_TEAM_ID", columnList = "TEAM_ID")
+        @Index(name = "IDX_PLAYER_TEAM_ID", columnList = "")
 })
 @Entity
 public class Player {
@@ -29,8 +29,8 @@ public class Player {
     @NotNull
     private String position;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
-    @OneToOne(fetch = FetchType.LAZY)
     private Team team;
 
     @Positive
